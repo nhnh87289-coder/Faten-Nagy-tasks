@@ -1,0 +1,36 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string fullName;
+    int id;
+    double grade ;
+    cout << "Enter Full Name: ";
+    getline(cin, fullName);
+
+    cout << "Enter ID: ";
+    cin >> id;
+
+    cout << "Enter Grade: ";
+    cin >> grade;
+
+    // 2.
+    ofstream outFile("Student.txt");
+
+    // 3.
+    if (outFile.is_open()) {
+        outFile << "Full Name: " << fullName << endl;
+        outFile << "ID: " << id << endl;
+        outFile << "Grade: " << grade << endl;
+
+        outFile.close(); // 
+        cout << "Student data has been saved to Student.txt successfully." << endl;
+    } else {
+        cout << "Error: Could not create or open the file." << endl;
+    }
+
+    return 0;
+}

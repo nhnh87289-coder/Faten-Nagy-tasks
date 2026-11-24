@@ -1,0 +1,45 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    string item;
+
+    
+    ofstream outfile("fruit.txt");
+
+    outfile << "Apple" << endl;
+    outfile << "Orange" << endl;
+    outfile << "Banana" << endl;
+    outfile << "Mango" << endl;
+    outfile << "Grapes" << endl;
+    outfile << "Strawberry" << endl;
+    outfile << "Guava" << endl;
+
+
+
+    outfile.close();
+
+    
+    ifstream infile("fruit.txt");
+
+    while (getline(infile, item))
+    {
+        cout << item << endl;
+    }
+
+    infile.close();
+
+    
+    ofstream file("fruit.txt", ios::app);
+
+    file << "Fresh Fruits and Vegetables" << endl;
+
+    file.close();
+
+    cout << "\nData saved successfully!" << endl;
+
+    return 0;
+}

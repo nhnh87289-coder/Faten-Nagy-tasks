@@ -1,0 +1,105 @@
+#include <iostream>
+#include <fstream>
+#include <cstdio>
+using namespace std;
+
+int main()
+{
+
+    ofstream outFile("grades.txt");
+
+    if (!outFile)
+    {
+        cout << "Error creating file!" << endl;
+        return 1;
+    }
+
+    outFile << 85 << endl;
+    outFile << 90 << endl;
+    outFile << 78 << endl;
+    outFile << 95 << endl;
+    outFile << 88 << endl;
+
+    outFile.close();
+
+
+    ifstream inFile("grades.txt");
+
+    int grade;
+
+    cout << "Grades before deletion: ";
+
+    while (inFile >> grade)
+    {
+        cout << grade << " ";
+    }
+
+    cout << endl;
+    inFile.close();
+
+
+
+    int deleteGrade;
+
+    cout << "Enter grade to delete: ";
+    cin >> deleteGrade;
+
+    inFile.open("grades.txt");
+    ofstream tempFile("temp.txt");
+
+    bool found = false;
+
+    while (inFile >> grade)
+    {
+        if (grade == deleteGrade)
+        {
+            found = true;
+        }
+        else
+        {
+            tempFile << grade << endl;
+        }
+    }
+
+    inFile.close();
+    tempFile.close();
+
+
+    if (remove("grades.txt") != 0)
+    {
+        cout << "Error deleting original file!" << endl;
+        remove("temp.txt");
+        return 1;
+    }
+
+    if (rename("temp.txt", "grades.txt") != 0)
+    {
+        cout << "Error replacing file!" << endl;
+        return 1;
+    }
+
+    if (found)
+    {
+        cout << "Grade deleted successfully!" << endl;
+    }
+    else
+    {
+        cout << "Grade not found!" << endl;
+    }
+
+
+    inFile.open("grades.txt");
+
+    cout << "Grades after deletion: ";
+
+    while (inFile >> grade)
+    {
+        cout << grade << " ";
+    }
+
+    cout << endl;
+
+    inFile.close();
+
+    return 0;
+}
